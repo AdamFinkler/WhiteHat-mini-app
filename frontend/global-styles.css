@@ -1,0 +1,25 @@
+:root {
+  /* PRIMARY */
+  --color-neon-green: #22c55e;        /* neon green */
+  --color-green-hover: #16a34a;
+  --color-secondary: #3b82f6;      /* blue */
+  --color-secondary-hover: #2563eb;
+
+  /* BACKGROUNDS */
+  --color-bg: #0f172a;             /* dark navy */
+  --color-card: #1e293b;
+  --color-text: #e2e8f0;
+  --color-text-light: #94a3b8;
+  --color-border: #334155;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
