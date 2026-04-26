@@ -1,34 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Product App</title>
-  <link rel="stylesheet" href="../global-styles.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product App</title>
+    <link rel="stylesheet" href="../global-styles.css" />
+    <link rel="stylesheet" href="add-products-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <div class="container">
-    <h1>Product Management</h1>
+  <body>
+    <div class="page-wrapper">
+      <h1>Product Management</h1>
 
-    <!-- ADD PRODUCT -->
-    <div class="card">
-      <h2>Add Product</h2>
+      <div class="add-products-page-wrapper">
+        <div class="card">
+          <h2>enter product name and price:</h2>
 
-      <input id="name" placeholder="Product Name" />
-      <input id="price" type="number" placeholder="Price" />
+          <input id="name" placeholder="Product Name" />
+          <input id="price" type="number" placeholder="Price" />
 
-      <button id="add-btn">Add Product</button>
+          <button id="add-btn">Add Product</button>
+        </div>
+      </div>
     </div>
 
-
-    <!-- RESULTS -->
-    <div class="card">
-      <h2>Results</h2>
-      <div id="results"></div>
-    </div>
-
-  </div>
-
-  <script src="main.js"></script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>

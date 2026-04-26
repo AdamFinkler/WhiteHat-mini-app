@@ -1,29 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Search Products</title>
-  <link rel="stylesheet" href="../global-styles.css" />
-</head>
-<body>
-  <div class="container">
-    <nav>
-      <a href="add-products.html">Add Product</a>
-    </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Search Products</title>
+    <link rel="stylesheet" href="../global-styles.css" />
+  </head>
+  <body>
 
-    <div class="card">
-      <h1>Search Products</h1>
+    <div class="search-products-page-wrapper">
+      
+      <nav>
+        <a href="add-products.html">Add Product</a>
+      </nav>
 
-      <input id="search" placeholder="Search by name or category..." />
-      <button id="search-btn">Search</button>
+      <div class="card">
+        <h1>Search Products</h1>
+
+        <input id="search" placeholder="Search by name or category..." />
+        <button id="search-btn">Search</button>
+      </div>
+
+      <div class="card">
+        <h2>Results</h2>
+        <div id="results"></div>
+      </div>
+
     </div>
 
-    <div class="card">
-      <h2>Results</h2>
-      <div id="results"></div>
-    </div>
-  </div>
-
-  <script src="search-products.js"></script>
-</body>
+    <script src="search-products.js"></script>
+  </body>
 </html>
