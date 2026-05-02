@@ -5,6 +5,10 @@ export function validateProduct(name, priceInputValue) {
     errors.name = "Name must contain letters";
   }
 
+  if (name && name.length > 50) {
+    errors.name = "Name is too long";
+  }
+
   const price = Number(priceInputValue);
 
   if (priceInputValue.trim() === "" || Number.isNaN(price)) {
@@ -13,6 +17,6 @@ export function validateProduct(name, priceInputValue) {
 
   return {
     errors,
-    price, 
+    price,
   };
 }

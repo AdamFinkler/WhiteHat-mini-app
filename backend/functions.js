@@ -6,7 +6,7 @@ import { getAllProductsQuery, addProductQuery, deleteProductQuery, searchProduct
 export function getAllProducts(req, res) {
   db.all(getAllProductsQuery, [], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: "internal server error" });
     }
 
     res.json(rows);
@@ -36,7 +36,6 @@ export function addProduct(req, res) {
     });
   }
 
-  /* ---------- INSERT ---------- */
 
   db.run(addProductQuery, [trimmedName, price], function (err) {
     if (err) {
@@ -47,13 +46,11 @@ export function addProduct(req, res) {
         });
       }
 
-      // ❌ other DB errors
       return res.status(500).json({
-        error: err.message,
+        error: "internal server error",
       });
     }
 
-    /* ---------- SUCCESS ---------- */
 
     return res.status(201).json({
       id: this.lastID,
@@ -73,7 +70,7 @@ export function deleteProduct(req, res) {
 
   db.run(deleteProductQuery, [id], function (err) {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: "internal server error" });
     }
 
     
@@ -103,7 +100,7 @@ export function searchProduct(req, res) {
 
   db.all(searchProductQuery, [name.trim()], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: "internal server error" });
     }
 
     res.json(rows);

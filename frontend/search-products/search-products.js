@@ -1,25 +1,35 @@
- import { searchProductsRequest } from "./requests.js";
+import { searchProductsRequest } from "./requests.js";
+import { validateSearch } from "./validation.js";
 
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 const results = document.getElementById("results");
 const errorMessage = document.getElementById("search-error");
 
-
 function renderProduct(product) {
   const card = document.createElement("div");
   card.className = "product-card";
 
-  card.innerHTML = `
-    <div class="product-name">${product.name}</div>
-    <div class="product-price">$${product.price}</div>
-  `;
+  const name = document.createElement("div");
+  name.className = "product-name";
+  name.textContent = product.name;
+
+  const price = document.createElement("div");
+  price.className = "product-price";
+  price.textContent = `$${product.price}`;
+
+  card.appendChild(name);
+  card.appendChild(price);
 
   results.appendChild(card);
 }
 
 function renderEmpty() {
-  results.innerHTML = `<div class="empty-message">No products found</div>`;
+  const empty = document.createElement("div");
+  empty.className = "empty-message";
+  empty.textContent = "No products found";
+
+  results.appendChild(empty);
 }
 
 function showError(message) {
@@ -34,15 +44,16 @@ function clearError() {
   searchInput.classList.remove("input-error");
 }
 
-
 async function searchProducts() {
   const name = searchInput.value.trim();
 
   clearError();
   results.innerHTML = "";
 
-  if (!name) {
-    showError("Please enter a product name");
+  const errors = validateSearch(name);
+
+  if (errors.name) {
+    showError(errors.name);
     return;
   }
 
@@ -60,7 +71,6 @@ async function searchProducts() {
   }
 }
 
-
 function handleSearchClick() {
   searchProducts();
 }
@@ -74,7 +84,6 @@ function handleSearchEnter(event) {
     searchProducts();
   }
 }
-
 
 searchBtn.addEventListener("click", handleSearchClick);
 searchInput.addEventListener("input", handleSearchInput);

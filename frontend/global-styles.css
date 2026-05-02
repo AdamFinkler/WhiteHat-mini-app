@@ -1,11 +1,10 @@
 :root {
-  /* PRIMARY */
-  --color-neon-green: #22c55e; /* neon green */
+  --color-neon-green: #22c55e; 
   --color-green-hover: #16a34a;
-  --color-secondary: #3b82f6; /* blue */
+  --color-secondary: #3b82f6; 
   --color-secondary-hover: #2563eb;
 
-  --color-dark-navy: #0f172a; /* dark navy */
+  --color-dark-navy: #0f172a; 
   --color-card: #1e293b;
   --color-text: #e2e8f0;
   --color-text-light: #94a3b8;
@@ -60,6 +59,26 @@ h1 {
 
 h2 {
   color: var(--color-neon-green);
-  /* min-width: 330px; */
   font-size: 1.2rem;
+}
+
+
+
+.nav-links {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.nav-links a {
+  color: var(--color-neon-green);
+  text-decoration: none;
+  border: 1px solid var(--color-neon-green);
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  background: var(--color-neon-green);
+  color: var(--color-dark-navy);
 }
