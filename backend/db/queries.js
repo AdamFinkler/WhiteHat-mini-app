@@ -13,5 +13,5 @@ export const deleteProductQuery = `
 `;
 
 export const searchProductQuery = `
-SELECT * FROM products WHERE name = ?
+  SELECT * FROM products WHERE name LIKE ?
 `;
