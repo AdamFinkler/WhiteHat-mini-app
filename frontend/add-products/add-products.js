@@ -20,7 +20,6 @@ const fields = [
 async function addProduct(event) {
   event.preventDefault();
 
-  successMessage.classList.add("hidden");
 
   const name = nameInput.value.trim();
 
@@ -44,22 +43,18 @@ async function addProduct(event) {
     nameInput.value = "";
     priceInput.value = "";
 
-    successMessage.classList.remove("hidden");
     nameInput.focus();
   } catch (err) {
-    successMessage.classList.add("hidden");
     showError(nameInput, nameError, err.message);
   }
 }
 
 function handleNameInput() {
   clearError(nameInput, nameError);
-  successMessage.classList.add("hidden");
 }
 
 function handlePriceInput() {
   clearError(priceInput, priceError);
-  successMessage.classList.add("hidden");
 }
 
 function handleEnterKey(event) {
