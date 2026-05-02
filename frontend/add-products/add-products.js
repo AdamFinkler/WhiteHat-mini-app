@@ -1,48 +1,74 @@
-const results = document.getElementById("results");
-
-function renderProduct(product) {
-  const card = document.createElement("div");
-  card.className = "product-card";
-
-  card.innerHTML = `
-    <div class="product-name">${product.name}</div>
-    <div class="product-price">$${product.price}</div>
-    <button class="delete-btn">×</button>
-  `;
-
-  // ✅ delete only THIS card
-  const deleteBtn = card.querySelector(".delete-btn");
-  deleteBtn.addEventListener("click", () => {
-    card.remove();
-  });
-
-  results.appendChild(card);
-}
+import { addProductRequest } from "./requests.js";
+import { validateProduct } from "./validation.js";
+import { showError, clearError, clearAllErrors } from "./ui.js";
 
 const addBtn = document.getElementById("add-btn");
 
-addBtn.addEventListener("click", () => {
-  const nameInput = document.getElementById("name");
-  const priceInput = document.getElementById("price");
+const nameInput = document.getElementById("name");
+const priceInput = document.getElementById("price");
+
+const nameError = document.getElementById("name-error");
+const priceError = document.getElementById("price-error");
+
+const successMessage = document.getElementById("success-message");
+
+const fields = [
+  { input: nameInput, error: nameError },
+  { input: priceInput, error: priceError },
+];
+
+async function addProduct(event) {
+  event.preventDefault();
+
+  successMessage.classList.add("hidden");
 
   const name = nameInput.value.trim();
-  const price = priceInput.value.trim();
 
-  // ❗ prevent empty items
-  if (!name || !price) {
-    alert("Please enter both name and price");
-    return;
+  clearAllErrors(fields);
+
+  const { errors, price } = validateProduct(name, priceInput.value);
+
+  if (errors.name) {
+    showError(nameInput, nameError, errors.name);
   }
 
-  renderProduct({
-    name,
-    price,
-  });
+  if (errors.price) {
+    showError(priceInput, priceError, errors.price);
+  }
 
-  // clear inputs
-  nameInput.value = "";
-  priceInput.value = "";
+  if (errors.name || errors.price) return;
 
-  // optional: focus back to first input
-  nameInput.focus();
-});
+  try {
+    await addProductRequest({ name, price });
+
+    nameInput.value = "";
+    priceInput.value = "";
+
+    successMessage.classList.remove("hidden");
+    nameInput.focus();
+  } catch (err) {
+    successMessage.classList.add("hidden");
+    showError(nameInput, nameError, err.message);
+  }
+}
+
+function handleNameInput() {
+  clearError(nameInput, nameError);
+  successMessage.classList.add("hidden");
+}
+
+function handlePriceInput() {
+  clearError(priceInput, priceError);
+  successMessage.classList.add("hidden");
+}
+
+function handleEnterKey(event) {
+  if (event.key === "Enter") {
+    addProduct(event);
+  }
+}
+
+addBtn.addEventListener("click", addProduct);
+nameInput.addEventListener("input", handleNameInput);
+priceInput.addEventListener("input", handlePriceInput);
+priceInput.addEventListener("keydown", handleEnterKey);

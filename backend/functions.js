@@ -1,9 +1,5 @@
 import db from "./db/db.js";
-import {
-  getAllProductsQuery,
-  addProductQuery,
-  deleteProductQuery,
-} from "./db/queries.js";
+import { getAllProductsQuery, addProductQuery, deleteProductQuery, searchProductQuery} from "./db/queries.js";
 
 
 
@@ -20,10 +16,14 @@ export function getAllProducts(req, res) {
 export function addProduct(req, res) {
   const { name, price } = req.body;
 
+  const trimmedName = name?.trim();
+
+  /* ---------- VALIDATION ---------- */
+
   if (
-    typeof name !== "string" ||
-    name.trim() === "" ||
-    !/[a-zA-Z]/.test(name)
+    typeof trimmedName !== "string" ||
+    trimmedName === "" ||
+    !/[a-zA-Z]/.test(trimmedName)
   ) {
     return res.status(400).json({
       error: "Name must be a string that contains letters",
@@ -36,18 +36,32 @@ export function addProduct(req, res) {
     });
   }
 
-  db.run(addProductQuery, [name.trim(), price], function (err) {
+  /* ---------- INSERT ---------- */
+
+  db.run(addProductQuery, [trimmedName, price], function (err) {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      // ✅ duplicate product
+      if (err.message.includes("UNIQUE")) {
+        return res.status(409).json({
+          error: "Product already exists",
+        });
+      }
+
+      // ❌ other DB errors
+      return res.status(500).json({
+        error: err.message,
+      });
     }
 
-    res.status(201).json({
+    /* ---------- SUCCESS ---------- */
+
+    return res.status(201).json({
       id: this.lastID,
-      name: name.trim(),
+      name: trimmedName,
       price,
     });
   });
-} 
+}
 
 export function deleteProduct(req, res) {
   const { id } = req.params;
@@ -71,5 +85,27 @@ export function deleteProduct(req, res) {
       message: "Product deleted successfully",
       id: Number(id),
     });
+  });
+}
+
+export function searchProduct(req, res) {
+  const { name } = req.query;
+
+  if (
+    typeof name !== "string" ||
+    name.trim() === "" ||
+    !/[a-zA-Z]/.test(name)
+  ) {
+    return res.status(400).json({
+      error: "Search name must contain letters",
+    });
+  }
+
+  db.all(searchProductQuery, [name.trim()], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json(rows);
   });
 }

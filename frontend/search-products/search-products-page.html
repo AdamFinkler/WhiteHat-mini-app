@@ -4,29 +4,33 @@
     <meta charset="UTF-8" />
     <title>Search Products</title>
     <link rel="stylesheet" href="../global-styles.css" />
+    <link rel="stylesheet" href="search-products-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
+    <div class="page-wrapper">
+      <h1>Search Products</h1>
 
-    <div class="search-products-page-wrapper">
-      
-      <nav>
-        <a href="add-products.html">Add Product</a>
-      </nav>
+      <div class="page-content-wrapper">
+        <div class="search-products-wrapper">
+          <h2>enter product name:</h2>
 
-      <div class="card">
-        <h1>Search Products</h1>
+          <div class="search-field">
+            <input id="search-input" placeholder="Product Name" />
+            <p id="search-error" class="error-message"></p>
+          </div>
 
-        <input id="search" placeholder="Search by name or category..." />
-        <button id="search-btn">Search</button>
+          <button id="search-btn">⌕</button>
+        </div>
+
+        <div id="results" class="products-list"></div>
       </div>
-
-      <div class="card">
-        <h2>Results</h2>
-        <div id="results"></div>
-      </div>
-
     </div>
 
-    <script src="search-products.js"></script>
+    <script type="module" src="search-products.js"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { getAllProducts, addProduct, deleteProduct} from "./functions.js";
+import productsRouter from "./productsRouter.js";
 
 
 const app = express();
@@ -10,10 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/products", getAllProducts);
-app.post("/products", addProduct);
-app.delete("/products/:id", deleteProduct);
+
+app.use("/products", productsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+

@@ -2,9 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Product App</title>
+    <title>Add Product</title>
+
     <link rel="stylesheet" href="../global-styles.css" />
     <link rel="stylesheet" href="add-products-styles.css" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap"
       rel="stylesheet"
@@ -12,27 +14,34 @@
   </head>
 
   <body>
-<div class="page-wrapper">
-  <h1>Product Management</h1>
+    <div class="page-wrapper">
+      <h1>Add Product</h1>
 
-  <div class = "page-content-wrapper">
+      <div class="page-content-wrapper">
+        <div class="add-products-wrapper">
+          <h2>enter product name and price:</h2>
 
-  
-  <div class="add-products-wrapper">
-    <h2>enter product name and price:</h2>
+          <div class="input-field">
+            <input id="name" placeholder="Product Name" />
+            <p id="name-error" class="error-message"></p>
+          </div>
 
-    <input id="name" placeholder="Product Name" />
-    <input id="price" type="number" placeholder="Price" />
-    <button id="add-btn">+</button>
-  </div>
+          <div class="input-field">
+            <input id="price" type="number" placeholder="Price" />
+            <p id="price-error" class="error-message"></p>
+          </div>
 
-  <div id="results" class="products-list">
+          <button id="add-btn">+</button>
+        </div>
 
+        <h2 id="success-message" class="success-message">
+  Product added successfully
+</h2>
 
-  </div>
-  </div>
-</div>
+      </div>
+    </div>
 
-    <script src="add-products.js"></script>
+    <!-- ✅ IMPORTANT FIX -->
+    <script type="module" src="add-products.js"></script>
   </body>
 </html>

@@ -11,3 +11,7 @@ export const deleteProductQuery = `
   DELETE FROM products
   WHERE id = ?
 `;
+
+export const searchProductQuery = `
+SELECT * FROM products WHERE name = ?
+`;
